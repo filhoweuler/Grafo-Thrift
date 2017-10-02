@@ -58,7 +58,11 @@ public class Grafo {
 
     public List<Aresta> listar_arestas_vertice(int nome) throws org.apache.thrift.TException;
 
-    public List<Vertice> listas_vizinhos_vertice(int nome) throws org.apache.thrift.TException;
+    public List<Vertice> listar_vizinhos_vertice(int nome) throws org.apache.thrift.TException;
+
+    public void graph_mutex_acquire() throws org.apache.thrift.TException;
+
+    public void graph_mutex_release() throws org.apache.thrift.TException;
 
   }
 
@@ -86,7 +90,11 @@ public class Grafo {
 
     public void listar_arestas_vertice(int nome, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
-    public void listas_vizinhos_vertice(int nome, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+    public void listar_vizinhos_vertice(int nome, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+
+    public void graph_mutex_acquire(org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
+
+    public void graph_mutex_release(org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException;
 
   }
 
@@ -348,27 +356,65 @@ public class Grafo {
       throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "listar_arestas_vertice failed: unknown result");
     }
 
-    public List<Vertice> listas_vizinhos_vertice(int nome) throws org.apache.thrift.TException
+    public List<Vertice> listar_vizinhos_vertice(int nome) throws org.apache.thrift.TException
     {
-      send_listas_vizinhos_vertice(nome);
-      return recv_listas_vizinhos_vertice();
+      send_listar_vizinhos_vertice(nome);
+      return recv_listar_vizinhos_vertice();
     }
 
-    public void send_listas_vizinhos_vertice(int nome) throws org.apache.thrift.TException
+    public void send_listar_vizinhos_vertice(int nome) throws org.apache.thrift.TException
     {
-      listas_vizinhos_vertice_args args = new listas_vizinhos_vertice_args();
+      listar_vizinhos_vertice_args args = new listar_vizinhos_vertice_args();
       args.setNome(nome);
-      sendBase("listas_vizinhos_vertice", args);
+      sendBase("listar_vizinhos_vertice", args);
     }
 
-    public List<Vertice> recv_listas_vizinhos_vertice() throws org.apache.thrift.TException
+    public List<Vertice> recv_listar_vizinhos_vertice() throws org.apache.thrift.TException
     {
-      listas_vizinhos_vertice_result result = new listas_vizinhos_vertice_result();
-      receiveBase(result, "listas_vizinhos_vertice");
+      listar_vizinhos_vertice_result result = new listar_vizinhos_vertice_result();
+      receiveBase(result, "listar_vizinhos_vertice");
       if (result.isSetSuccess()) {
         return result.success;
       }
-      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "listas_vizinhos_vertice failed: unknown result");
+      throw new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.MISSING_RESULT, "listar_vizinhos_vertice failed: unknown result");
+    }
+
+    public void graph_mutex_acquire() throws org.apache.thrift.TException
+    {
+      send_graph_mutex_acquire();
+      recv_graph_mutex_acquire();
+    }
+
+    public void send_graph_mutex_acquire() throws org.apache.thrift.TException
+    {
+      graph_mutex_acquire_args args = new graph_mutex_acquire_args();
+      sendBase("graph_mutex_acquire", args);
+    }
+
+    public void recv_graph_mutex_acquire() throws org.apache.thrift.TException
+    {
+      graph_mutex_acquire_result result = new graph_mutex_acquire_result();
+      receiveBase(result, "graph_mutex_acquire");
+      return;
+    }
+
+    public void graph_mutex_release() throws org.apache.thrift.TException
+    {
+      send_graph_mutex_release();
+      recv_graph_mutex_release();
+    }
+
+    public void send_graph_mutex_release() throws org.apache.thrift.TException
+    {
+      graph_mutex_release_args args = new graph_mutex_release_args();
+      sendBase("graph_mutex_release", args);
+    }
+
+    public void recv_graph_mutex_release() throws org.apache.thrift.TException
+    {
+      graph_mutex_release_result result = new graph_mutex_release_result();
+      receiveBase(result, "graph_mutex_release");
+      return;
     }
 
   }
@@ -750,23 +796,23 @@ public class Grafo {
       }
     }
 
-    public void listas_vizinhos_vertice(int nome, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+    public void listar_vizinhos_vertice(int nome, org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
       checkReady();
-      listas_vizinhos_vertice_call method_call = new listas_vizinhos_vertice_call(nome, resultHandler, this, ___protocolFactory, ___transport);
+      listar_vizinhos_vertice_call method_call = new listar_vizinhos_vertice_call(nome, resultHandler, this, ___protocolFactory, ___transport);
       this.___currentMethod = method_call;
       ___manager.call(method_call);
     }
 
-    public static class listas_vizinhos_vertice_call extends org.apache.thrift.async.TAsyncMethodCall {
+    public static class listar_vizinhos_vertice_call extends org.apache.thrift.async.TAsyncMethodCall {
       private int nome;
-      public listas_vizinhos_vertice_call(int nome, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+      public listar_vizinhos_vertice_call(int nome, org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
         super(client, protocolFactory, transport, resultHandler, false);
         this.nome = nome;
       }
 
       public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
-        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("listas_vizinhos_vertice", org.apache.thrift.protocol.TMessageType.CALL, 0));
-        listas_vizinhos_vertice_args args = new listas_vizinhos_vertice_args();
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("listar_vizinhos_vertice", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        listar_vizinhos_vertice_args args = new listar_vizinhos_vertice_args();
         args.setNome(nome);
         args.write(prot);
         prot.writeMessageEnd();
@@ -778,7 +824,65 @@ public class Grafo {
         }
         org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
         org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
-        return (new Client(prot)).recv_listas_vizinhos_vertice();
+        return (new Client(prot)).recv_listar_vizinhos_vertice();
+      }
+    }
+
+    public void graph_mutex_acquire(org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+      checkReady();
+      graph_mutex_acquire_call method_call = new graph_mutex_acquire_call(resultHandler, this, ___protocolFactory, ___transport);
+      this.___currentMethod = method_call;
+      ___manager.call(method_call);
+    }
+
+    public static class graph_mutex_acquire_call extends org.apache.thrift.async.TAsyncMethodCall {
+      public graph_mutex_acquire_call(org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+      }
+
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("graph_mutex_acquire", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        graph_mutex_acquire_args args = new graph_mutex_acquire_args();
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public void getResult() throws org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+          throw new IllegalStateException("Method call not finished!");
+        }
+        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        (new Client(prot)).recv_graph_mutex_acquire();
+      }
+    }
+
+    public void graph_mutex_release(org.apache.thrift.async.AsyncMethodCallback resultHandler) throws org.apache.thrift.TException {
+      checkReady();
+      graph_mutex_release_call method_call = new graph_mutex_release_call(resultHandler, this, ___protocolFactory, ___transport);
+      this.___currentMethod = method_call;
+      ___manager.call(method_call);
+    }
+
+    public static class graph_mutex_release_call extends org.apache.thrift.async.TAsyncMethodCall {
+      public graph_mutex_release_call(org.apache.thrift.async.AsyncMethodCallback resultHandler, org.apache.thrift.async.TAsyncClient client, org.apache.thrift.protocol.TProtocolFactory protocolFactory, org.apache.thrift.transport.TNonblockingTransport transport) throws org.apache.thrift.TException {
+        super(client, protocolFactory, transport, resultHandler, false);
+      }
+
+      public void write_args(org.apache.thrift.protocol.TProtocol prot) throws org.apache.thrift.TException {
+        prot.writeMessageBegin(new org.apache.thrift.protocol.TMessage("graph_mutex_release", org.apache.thrift.protocol.TMessageType.CALL, 0));
+        graph_mutex_release_args args = new graph_mutex_release_args();
+        args.write(prot);
+        prot.writeMessageEnd();
+      }
+
+      public void getResult() throws org.apache.thrift.TException {
+        if (getState() != org.apache.thrift.async.TAsyncMethodCall.State.RESPONSE_READ) {
+          throw new IllegalStateException("Method call not finished!");
+        }
+        org.apache.thrift.transport.TMemoryInputTransport memoryTransport = new org.apache.thrift.transport.TMemoryInputTransport(getFrameBuffer().array());
+        org.apache.thrift.protocol.TProtocol prot = client.getProtocolFactory().getProtocol(memoryTransport);
+        (new Client(prot)).recv_graph_mutex_release();
       }
     }
 
@@ -806,7 +910,9 @@ public class Grafo {
       processMap.put("listar_vertices", new listar_vertices());
       processMap.put("listar_arestas", new listar_arestas());
       processMap.put("listar_arestas_vertice", new listar_arestas_vertice());
-      processMap.put("listas_vizinhos_vertice", new listas_vizinhos_vertice());
+      processMap.put("listar_vizinhos_vertice", new listar_vizinhos_vertice());
+      processMap.put("graph_mutex_acquire", new graph_mutex_acquire());
+      processMap.put("graph_mutex_release", new graph_mutex_release());
       return processMap;
     }
 
@@ -1030,22 +1136,62 @@ public class Grafo {
       }
     }
 
-    public static class listas_vizinhos_vertice<I extends Iface> extends org.apache.thrift.ProcessFunction<I, listas_vizinhos_vertice_args> {
-      public listas_vizinhos_vertice() {
-        super("listas_vizinhos_vertice");
+    public static class listar_vizinhos_vertice<I extends Iface> extends org.apache.thrift.ProcessFunction<I, listar_vizinhos_vertice_args> {
+      public listar_vizinhos_vertice() {
+        super("listar_vizinhos_vertice");
       }
 
-      public listas_vizinhos_vertice_args getEmptyArgsInstance() {
-        return new listas_vizinhos_vertice_args();
+      public listar_vizinhos_vertice_args getEmptyArgsInstance() {
+        return new listar_vizinhos_vertice_args();
       }
 
       protected boolean isOneway() {
         return false;
       }
 
-      public listas_vizinhos_vertice_result getResult(I iface, listas_vizinhos_vertice_args args) throws org.apache.thrift.TException {
-        listas_vizinhos_vertice_result result = new listas_vizinhos_vertice_result();
-        result.success = iface.listas_vizinhos_vertice(args.nome);
+      public listar_vizinhos_vertice_result getResult(I iface, listar_vizinhos_vertice_args args) throws org.apache.thrift.TException {
+        listar_vizinhos_vertice_result result = new listar_vizinhos_vertice_result();
+        result.success = iface.listar_vizinhos_vertice(args.nome);
+        return result;
+      }
+    }
+
+    public static class graph_mutex_acquire<I extends Iface> extends org.apache.thrift.ProcessFunction<I, graph_mutex_acquire_args> {
+      public graph_mutex_acquire() {
+        super("graph_mutex_acquire");
+      }
+
+      public graph_mutex_acquire_args getEmptyArgsInstance() {
+        return new graph_mutex_acquire_args();
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public graph_mutex_acquire_result getResult(I iface, graph_mutex_acquire_args args) throws org.apache.thrift.TException {
+        graph_mutex_acquire_result result = new graph_mutex_acquire_result();
+        iface.graph_mutex_acquire();
+        return result;
+      }
+    }
+
+    public static class graph_mutex_release<I extends Iface> extends org.apache.thrift.ProcessFunction<I, graph_mutex_release_args> {
+      public graph_mutex_release() {
+        super("graph_mutex_release");
+      }
+
+      public graph_mutex_release_args getEmptyArgsInstance() {
+        return new graph_mutex_release_args();
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public graph_mutex_release_result getResult(I iface, graph_mutex_release_args args) throws org.apache.thrift.TException {
+        graph_mutex_release_result result = new graph_mutex_release_result();
+        iface.graph_mutex_release();
         return result;
       }
     }
@@ -1074,7 +1220,9 @@ public class Grafo {
       processMap.put("listar_vertices", new listar_vertices());
       processMap.put("listar_arestas", new listar_arestas());
       processMap.put("listar_arestas_vertice", new listar_arestas_vertice());
-      processMap.put("listas_vizinhos_vertice", new listas_vizinhos_vertice());
+      processMap.put("listar_vizinhos_vertice", new listar_vizinhos_vertice());
+      processMap.put("graph_mutex_acquire", new graph_mutex_acquire());
+      processMap.put("graph_mutex_release", new graph_mutex_release());
       return processMap;
     }
 
@@ -1633,20 +1781,20 @@ public class Grafo {
       }
     }
 
-    public static class listas_vizinhos_vertice<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, listas_vizinhos_vertice_args, List<Vertice>> {
-      public listas_vizinhos_vertice() {
-        super("listas_vizinhos_vertice");
+    public static class listar_vizinhos_vertice<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, listar_vizinhos_vertice_args, List<Vertice>> {
+      public listar_vizinhos_vertice() {
+        super("listar_vizinhos_vertice");
       }
 
-      public listas_vizinhos_vertice_args getEmptyArgsInstance() {
-        return new listas_vizinhos_vertice_args();
+      public listar_vizinhos_vertice_args getEmptyArgsInstance() {
+        return new listar_vizinhos_vertice_args();
       }
 
       public AsyncMethodCallback<List<Vertice>> getResultHandler(final AsyncFrameBuffer fb, final int seqid) {
         final org.apache.thrift.AsyncProcessFunction fcall = this;
         return new AsyncMethodCallback<List<Vertice>>() { 
           public void onComplete(List<Vertice> o) {
-            listas_vizinhos_vertice_result result = new listas_vizinhos_vertice_result();
+            listar_vizinhos_vertice_result result = new listar_vizinhos_vertice_result();
             result.success = o;
             try {
               fcall.sendResponse(fb,result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
@@ -1659,7 +1807,7 @@ public class Grafo {
           public void onError(Exception e) {
             byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
             org.apache.thrift.TBase msg;
-            listas_vizinhos_vertice_result result = new listas_vizinhos_vertice_result();
+            listar_vizinhos_vertice_result result = new listar_vizinhos_vertice_result();
             {
               msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
               msg = (org.apache.thrift.TBase)new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
@@ -1679,8 +1827,108 @@ public class Grafo {
         return false;
       }
 
-      public void start(I iface, listas_vizinhos_vertice_args args, org.apache.thrift.async.AsyncMethodCallback<List<Vertice>> resultHandler) throws TException {
-        iface.listas_vizinhos_vertice(args.nome,resultHandler);
+      public void start(I iface, listar_vizinhos_vertice_args args, org.apache.thrift.async.AsyncMethodCallback<List<Vertice>> resultHandler) throws TException {
+        iface.listar_vizinhos_vertice(args.nome,resultHandler);
+      }
+    }
+
+    public static class graph_mutex_acquire<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, graph_mutex_acquire_args, Void> {
+      public graph_mutex_acquire() {
+        super("graph_mutex_acquire");
+      }
+
+      public graph_mutex_acquire_args getEmptyArgsInstance() {
+        return new graph_mutex_acquire_args();
+      }
+
+      public AsyncMethodCallback<Void> getResultHandler(final AsyncFrameBuffer fb, final int seqid) {
+        final org.apache.thrift.AsyncProcessFunction fcall = this;
+        return new AsyncMethodCallback<Void>() { 
+          public void onComplete(Void o) {
+            graph_mutex_acquire_result result = new graph_mutex_acquire_result();
+            try {
+              fcall.sendResponse(fb,result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
+              return;
+            } catch (Exception e) {
+              LOGGER.error("Exception writing to internal frame buffer", e);
+            }
+            fb.close();
+          }
+          public void onError(Exception e) {
+            byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
+            org.apache.thrift.TBase msg;
+            graph_mutex_acquire_result result = new graph_mutex_acquire_result();
+            {
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = (org.apache.thrift.TBase)new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
+            }
+            try {
+              fcall.sendResponse(fb,msg,msgType,seqid);
+              return;
+            } catch (Exception ex) {
+              LOGGER.error("Exception writing to internal frame buffer", ex);
+            }
+            fb.close();
+          }
+        };
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public void start(I iface, graph_mutex_acquire_args args, org.apache.thrift.async.AsyncMethodCallback<Void> resultHandler) throws TException {
+        iface.graph_mutex_acquire(resultHandler);
+      }
+    }
+
+    public static class graph_mutex_release<I extends AsyncIface> extends org.apache.thrift.AsyncProcessFunction<I, graph_mutex_release_args, Void> {
+      public graph_mutex_release() {
+        super("graph_mutex_release");
+      }
+
+      public graph_mutex_release_args getEmptyArgsInstance() {
+        return new graph_mutex_release_args();
+      }
+
+      public AsyncMethodCallback<Void> getResultHandler(final AsyncFrameBuffer fb, final int seqid) {
+        final org.apache.thrift.AsyncProcessFunction fcall = this;
+        return new AsyncMethodCallback<Void>() { 
+          public void onComplete(Void o) {
+            graph_mutex_release_result result = new graph_mutex_release_result();
+            try {
+              fcall.sendResponse(fb,result, org.apache.thrift.protocol.TMessageType.REPLY,seqid);
+              return;
+            } catch (Exception e) {
+              LOGGER.error("Exception writing to internal frame buffer", e);
+            }
+            fb.close();
+          }
+          public void onError(Exception e) {
+            byte msgType = org.apache.thrift.protocol.TMessageType.REPLY;
+            org.apache.thrift.TBase msg;
+            graph_mutex_release_result result = new graph_mutex_release_result();
+            {
+              msgType = org.apache.thrift.protocol.TMessageType.EXCEPTION;
+              msg = (org.apache.thrift.TBase)new org.apache.thrift.TApplicationException(org.apache.thrift.TApplicationException.INTERNAL_ERROR, e.getMessage());
+            }
+            try {
+              fcall.sendResponse(fb,msg,msgType,seqid);
+              return;
+            } catch (Exception ex) {
+              LOGGER.error("Exception writing to internal frame buffer", ex);
+            }
+            fb.close();
+          }
+        };
+      }
+
+      protected boolean isOneway() {
+        return false;
+      }
+
+      public void start(I iface, graph_mutex_release_args args, org.apache.thrift.async.AsyncMethodCallback<Void> resultHandler) throws TException {
+        iface.graph_mutex_release(resultHandler);
       }
     }
 
@@ -9270,15 +9518,15 @@ public class Grafo {
 
   }
 
-  public static class listas_vizinhos_vertice_args implements org.apache.thrift.TBase<listas_vizinhos_vertice_args, listas_vizinhos_vertice_args._Fields>, java.io.Serializable, Cloneable, Comparable<listas_vizinhos_vertice_args>   {
-    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("listas_vizinhos_vertice_args");
+  public static class listar_vizinhos_vertice_args implements org.apache.thrift.TBase<listar_vizinhos_vertice_args, listar_vizinhos_vertice_args._Fields>, java.io.Serializable, Cloneable, Comparable<listar_vizinhos_vertice_args>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("listar_vizinhos_vertice_args");
 
     private static final org.apache.thrift.protocol.TField NOME_FIELD_DESC = new org.apache.thrift.protocol.TField("nome", org.apache.thrift.protocol.TType.I32, (short)1);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
-      schemes.put(StandardScheme.class, new listas_vizinhos_vertice_argsStandardSchemeFactory());
-      schemes.put(TupleScheme.class, new listas_vizinhos_vertice_argsTupleSchemeFactory());
+      schemes.put(StandardScheme.class, new listar_vizinhos_vertice_argsStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new listar_vizinhos_vertice_argsTupleSchemeFactory());
     }
 
     public int nome; // required
@@ -9350,13 +9598,13 @@ public class Grafo {
       tmpMap.put(_Fields.NOME, new org.apache.thrift.meta_data.FieldMetaData("nome", org.apache.thrift.TFieldRequirementType.DEFAULT, 
           new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I32)));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
-      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(listas_vizinhos_vertice_args.class, metaDataMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(listar_vizinhos_vertice_args.class, metaDataMap);
     }
 
-    public listas_vizinhos_vertice_args() {
+    public listar_vizinhos_vertice_args() {
     }
 
-    public listas_vizinhos_vertice_args(
+    public listar_vizinhos_vertice_args(
       int nome)
     {
       this();
@@ -9367,13 +9615,13 @@ public class Grafo {
     /**
      * Performs a deep copy on <i>other</i>.
      */
-    public listas_vizinhos_vertice_args(listas_vizinhos_vertice_args other) {
+    public listar_vizinhos_vertice_args(listar_vizinhos_vertice_args other) {
       __isset_bitfield = other.__isset_bitfield;
       this.nome = other.nome;
     }
 
-    public listas_vizinhos_vertice_args deepCopy() {
-      return new listas_vizinhos_vertice_args(this);
+    public listar_vizinhos_vertice_args deepCopy() {
+      return new listar_vizinhos_vertice_args(this);
     }
 
     @Override
@@ -9386,7 +9634,7 @@ public class Grafo {
       return this.nome;
     }
 
-    public listas_vizinhos_vertice_args setNome(int nome) {
+    public listar_vizinhos_vertice_args setNome(int nome) {
       this.nome = nome;
       setNomeIsSet(true);
       return this;
@@ -9444,12 +9692,12 @@ public class Grafo {
     public boolean equals(Object that) {
       if (that == null)
         return false;
-      if (that instanceof listas_vizinhos_vertice_args)
-        return this.equals((listas_vizinhos_vertice_args)that);
+      if (that instanceof listar_vizinhos_vertice_args)
+        return this.equals((listar_vizinhos_vertice_args)that);
       return false;
     }
 
-    public boolean equals(listas_vizinhos_vertice_args that) {
+    public boolean equals(listar_vizinhos_vertice_args that) {
       if (that == null)
         return false;
 
@@ -9471,7 +9719,7 @@ public class Grafo {
     }
 
     @Override
-    public int compareTo(listas_vizinhos_vertice_args other) {
+    public int compareTo(listar_vizinhos_vertice_args other) {
       if (!getClass().equals(other.getClass())) {
         return getClass().getName().compareTo(other.getClass().getName());
       }
@@ -9505,7 +9753,7 @@ public class Grafo {
 
     @Override
     public String toString() {
-      StringBuilder sb = new StringBuilder("listas_vizinhos_vertice_args(");
+      StringBuilder sb = new StringBuilder("listar_vizinhos_vertice_args(");
       boolean first = true;
 
       sb.append("nome:");
@@ -9538,15 +9786,15 @@ public class Grafo {
       }
     }
 
-    private static class listas_vizinhos_vertice_argsStandardSchemeFactory implements SchemeFactory {
-      public listas_vizinhos_vertice_argsStandardScheme getScheme() {
-        return new listas_vizinhos_vertice_argsStandardScheme();
+    private static class listar_vizinhos_vertice_argsStandardSchemeFactory implements SchemeFactory {
+      public listar_vizinhos_vertice_argsStandardScheme getScheme() {
+        return new listar_vizinhos_vertice_argsStandardScheme();
       }
     }
 
-    private static class listas_vizinhos_vertice_argsStandardScheme extends StandardScheme<listas_vizinhos_vertice_args> {
+    private static class listar_vizinhos_vertice_argsStandardScheme extends StandardScheme<listar_vizinhos_vertice_args> {
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, listas_vizinhos_vertice_args struct) throws org.apache.thrift.TException {
+      public void read(org.apache.thrift.protocol.TProtocol iprot, listar_vizinhos_vertice_args struct) throws org.apache.thrift.TException {
         org.apache.thrift.protocol.TField schemeField;
         iprot.readStructBegin();
         while (true)
@@ -9575,7 +9823,7 @@ public class Grafo {
         struct.validate();
       }
 
-      public void write(org.apache.thrift.protocol.TProtocol oprot, listas_vizinhos_vertice_args struct) throws org.apache.thrift.TException {
+      public void write(org.apache.thrift.protocol.TProtocol oprot, listar_vizinhos_vertice_args struct) throws org.apache.thrift.TException {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
@@ -9588,16 +9836,16 @@ public class Grafo {
 
     }
 
-    private static class listas_vizinhos_vertice_argsTupleSchemeFactory implements SchemeFactory {
-      public listas_vizinhos_vertice_argsTupleScheme getScheme() {
-        return new listas_vizinhos_vertice_argsTupleScheme();
+    private static class listar_vizinhos_vertice_argsTupleSchemeFactory implements SchemeFactory {
+      public listar_vizinhos_vertice_argsTupleScheme getScheme() {
+        return new listar_vizinhos_vertice_argsTupleScheme();
       }
     }
 
-    private static class listas_vizinhos_vertice_argsTupleScheme extends TupleScheme<listas_vizinhos_vertice_args> {
+    private static class listar_vizinhos_vertice_argsTupleScheme extends TupleScheme<listar_vizinhos_vertice_args> {
 
       @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, listas_vizinhos_vertice_args struct) throws org.apache.thrift.TException {
+      public void write(org.apache.thrift.protocol.TProtocol prot, listar_vizinhos_vertice_args struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         BitSet optionals = new BitSet();
         if (struct.isSetNome()) {
@@ -9610,7 +9858,7 @@ public class Grafo {
       }
 
       @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, listas_vizinhos_vertice_args struct) throws org.apache.thrift.TException {
+      public void read(org.apache.thrift.protocol.TProtocol prot, listar_vizinhos_vertice_args struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
@@ -9622,15 +9870,15 @@ public class Grafo {
 
   }
 
-  public static class listas_vizinhos_vertice_result implements org.apache.thrift.TBase<listas_vizinhos_vertice_result, listas_vizinhos_vertice_result._Fields>, java.io.Serializable, Cloneable, Comparable<listas_vizinhos_vertice_result>   {
-    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("listas_vizinhos_vertice_result");
+  public static class listar_vizinhos_vertice_result implements org.apache.thrift.TBase<listar_vizinhos_vertice_result, listar_vizinhos_vertice_result._Fields>, java.io.Serializable, Cloneable, Comparable<listar_vizinhos_vertice_result>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("listar_vizinhos_vertice_result");
 
     private static final org.apache.thrift.protocol.TField SUCCESS_FIELD_DESC = new org.apache.thrift.protocol.TField("success", org.apache.thrift.protocol.TType.LIST, (short)0);
 
     private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
     static {
-      schemes.put(StandardScheme.class, new listas_vizinhos_vertice_resultStandardSchemeFactory());
-      schemes.put(TupleScheme.class, new listas_vizinhos_vertice_resultTupleSchemeFactory());
+      schemes.put(StandardScheme.class, new listar_vizinhos_vertice_resultStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new listar_vizinhos_vertice_resultTupleSchemeFactory());
     }
 
     public List<Vertice> success; // required
@@ -9701,13 +9949,13 @@ public class Grafo {
           new org.apache.thrift.meta_data.ListMetaData(org.apache.thrift.protocol.TType.LIST, 
               new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, Vertice.class))));
       metaDataMap = Collections.unmodifiableMap(tmpMap);
-      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(listas_vizinhos_vertice_result.class, metaDataMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(listar_vizinhos_vertice_result.class, metaDataMap);
     }
 
-    public listas_vizinhos_vertice_result() {
+    public listar_vizinhos_vertice_result() {
     }
 
-    public listas_vizinhos_vertice_result(
+    public listar_vizinhos_vertice_result(
       List<Vertice> success)
     {
       this();
@@ -9717,7 +9965,7 @@ public class Grafo {
     /**
      * Performs a deep copy on <i>other</i>.
      */
-    public listas_vizinhos_vertice_result(listas_vizinhos_vertice_result other) {
+    public listar_vizinhos_vertice_result(listar_vizinhos_vertice_result other) {
       if (other.isSetSuccess()) {
         List<Vertice> __this__success = new ArrayList<Vertice>(other.success.size());
         for (Vertice other_element : other.success) {
@@ -9727,8 +9975,8 @@ public class Grafo {
       }
     }
 
-    public listas_vizinhos_vertice_result deepCopy() {
-      return new listas_vizinhos_vertice_result(this);
+    public listar_vizinhos_vertice_result deepCopy() {
+      return new listar_vizinhos_vertice_result(this);
     }
 
     @Override
@@ -9755,7 +10003,7 @@ public class Grafo {
       return this.success;
     }
 
-    public listas_vizinhos_vertice_result setSuccess(List<Vertice> success) {
+    public listar_vizinhos_vertice_result setSuccess(List<Vertice> success) {
       this.success = success;
       return this;
     }
@@ -9814,12 +10062,12 @@ public class Grafo {
     public boolean equals(Object that) {
       if (that == null)
         return false;
-      if (that instanceof listas_vizinhos_vertice_result)
-        return this.equals((listas_vizinhos_vertice_result)that);
+      if (that instanceof listar_vizinhos_vertice_result)
+        return this.equals((listar_vizinhos_vertice_result)that);
       return false;
     }
 
-    public boolean equals(listas_vizinhos_vertice_result that) {
+    public boolean equals(listar_vizinhos_vertice_result that) {
       if (that == null)
         return false;
 
@@ -9841,7 +10089,7 @@ public class Grafo {
     }
 
     @Override
-    public int compareTo(listas_vizinhos_vertice_result other) {
+    public int compareTo(listar_vizinhos_vertice_result other) {
       if (!getClass().equals(other.getClass())) {
         return getClass().getName().compareTo(other.getClass().getName());
       }
@@ -9875,7 +10123,7 @@ public class Grafo {
 
     @Override
     public String toString() {
-      StringBuilder sb = new StringBuilder("listas_vizinhos_vertice_result(");
+      StringBuilder sb = new StringBuilder("listar_vizinhos_vertice_result(");
       boolean first = true;
 
       sb.append("success:");
@@ -9910,15 +10158,15 @@ public class Grafo {
       }
     }
 
-    private static class listas_vizinhos_vertice_resultStandardSchemeFactory implements SchemeFactory {
-      public listas_vizinhos_vertice_resultStandardScheme getScheme() {
-        return new listas_vizinhos_vertice_resultStandardScheme();
+    private static class listar_vizinhos_vertice_resultStandardSchemeFactory implements SchemeFactory {
+      public listar_vizinhos_vertice_resultStandardScheme getScheme() {
+        return new listar_vizinhos_vertice_resultStandardScheme();
       }
     }
 
-    private static class listas_vizinhos_vertice_resultStandardScheme extends StandardScheme<listas_vizinhos_vertice_result> {
+    private static class listar_vizinhos_vertice_resultStandardScheme extends StandardScheme<listar_vizinhos_vertice_result> {
 
-      public void read(org.apache.thrift.protocol.TProtocol iprot, listas_vizinhos_vertice_result struct) throws org.apache.thrift.TException {
+      public void read(org.apache.thrift.protocol.TProtocol iprot, listar_vizinhos_vertice_result struct) throws org.apache.thrift.TException {
         org.apache.thrift.protocol.TField schemeField;
         iprot.readStructBegin();
         while (true)
@@ -9958,7 +10206,7 @@ public class Grafo {
         struct.validate();
       }
 
-      public void write(org.apache.thrift.protocol.TProtocol oprot, listas_vizinhos_vertice_result struct) throws org.apache.thrift.TException {
+      public void write(org.apache.thrift.protocol.TProtocol oprot, listar_vizinhos_vertice_result struct) throws org.apache.thrift.TException {
         struct.validate();
 
         oprot.writeStructBegin(STRUCT_DESC);
@@ -9980,16 +10228,16 @@ public class Grafo {
 
     }
 
-    private static class listas_vizinhos_vertice_resultTupleSchemeFactory implements SchemeFactory {
-      public listas_vizinhos_vertice_resultTupleScheme getScheme() {
-        return new listas_vizinhos_vertice_resultTupleScheme();
+    private static class listar_vizinhos_vertice_resultTupleSchemeFactory implements SchemeFactory {
+      public listar_vizinhos_vertice_resultTupleScheme getScheme() {
+        return new listar_vizinhos_vertice_resultTupleScheme();
       }
     }
 
-    private static class listas_vizinhos_vertice_resultTupleScheme extends TupleScheme<listas_vizinhos_vertice_result> {
+    private static class listar_vizinhos_vertice_resultTupleScheme extends TupleScheme<listar_vizinhos_vertice_result> {
 
       @Override
-      public void write(org.apache.thrift.protocol.TProtocol prot, listas_vizinhos_vertice_result struct) throws org.apache.thrift.TException {
+      public void write(org.apache.thrift.protocol.TProtocol prot, listar_vizinhos_vertice_result struct) throws org.apache.thrift.TException {
         TTupleProtocol oprot = (TTupleProtocol) prot;
         BitSet optionals = new BitSet();
         if (struct.isSetSuccess()) {
@@ -10008,7 +10256,7 @@ public class Grafo {
       }
 
       @Override
-      public void read(org.apache.thrift.protocol.TProtocol prot, listas_vizinhos_vertice_result struct) throws org.apache.thrift.TException {
+      public void read(org.apache.thrift.protocol.TProtocol prot, listar_vizinhos_vertice_result struct) throws org.apache.thrift.TException {
         TTupleProtocol iprot = (TTupleProtocol) prot;
         BitSet incoming = iprot.readBitSet(1);
         if (incoming.get(0)) {
@@ -10025,6 +10273,990 @@ public class Grafo {
           }
           struct.setSuccessIsSet(true);
         }
+      }
+    }
+
+  }
+
+  public static class graph_mutex_acquire_args implements org.apache.thrift.TBase<graph_mutex_acquire_args, graph_mutex_acquire_args._Fields>, java.io.Serializable, Cloneable, Comparable<graph_mutex_acquire_args>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("graph_mutex_acquire_args");
+
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new graph_mutex_acquire_argsStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new graph_mutex_acquire_argsTupleSchemeFactory());
+    }
+
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+;
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(graph_mutex_acquire_args.class, metaDataMap);
+    }
+
+    public graph_mutex_acquire_args() {
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public graph_mutex_acquire_args(graph_mutex_acquire_args other) {
+    }
+
+    public graph_mutex_acquire_args deepCopy() {
+      return new graph_mutex_acquire_args(this);
+    }
+
+    @Override
+    public void clear() {
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof graph_mutex_acquire_args)
+        return this.equals((graph_mutex_acquire_args)that);
+      return false;
+    }
+
+    public boolean equals(graph_mutex_acquire_args that) {
+      if (that == null)
+        return false;
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(graph_mutex_acquire_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("graph_mutex_acquire_args(");
+      boolean first = true;
+
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class graph_mutex_acquire_argsStandardSchemeFactory implements SchemeFactory {
+      public graph_mutex_acquire_argsStandardScheme getScheme() {
+        return new graph_mutex_acquire_argsStandardScheme();
+      }
+    }
+
+    private static class graph_mutex_acquire_argsStandardScheme extends StandardScheme<graph_mutex_acquire_args> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, graph_mutex_acquire_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, graph_mutex_acquire_args struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class graph_mutex_acquire_argsTupleSchemeFactory implements SchemeFactory {
+      public graph_mutex_acquire_argsTupleScheme getScheme() {
+        return new graph_mutex_acquire_argsTupleScheme();
+      }
+    }
+
+    private static class graph_mutex_acquire_argsTupleScheme extends TupleScheme<graph_mutex_acquire_args> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, graph_mutex_acquire_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, graph_mutex_acquire_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+      }
+    }
+
+  }
+
+  public static class graph_mutex_acquire_result implements org.apache.thrift.TBase<graph_mutex_acquire_result, graph_mutex_acquire_result._Fields>, java.io.Serializable, Cloneable, Comparable<graph_mutex_acquire_result>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("graph_mutex_acquire_result");
+
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new graph_mutex_acquire_resultStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new graph_mutex_acquire_resultTupleSchemeFactory());
+    }
+
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+;
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(graph_mutex_acquire_result.class, metaDataMap);
+    }
+
+    public graph_mutex_acquire_result() {
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public graph_mutex_acquire_result(graph_mutex_acquire_result other) {
+    }
+
+    public graph_mutex_acquire_result deepCopy() {
+      return new graph_mutex_acquire_result(this);
+    }
+
+    @Override
+    public void clear() {
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof graph_mutex_acquire_result)
+        return this.equals((graph_mutex_acquire_result)that);
+      return false;
+    }
+
+    public boolean equals(graph_mutex_acquire_result that) {
+      if (that == null)
+        return false;
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(graph_mutex_acquire_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+      }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("graph_mutex_acquire_result(");
+      boolean first = true;
+
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class graph_mutex_acquire_resultStandardSchemeFactory implements SchemeFactory {
+      public graph_mutex_acquire_resultStandardScheme getScheme() {
+        return new graph_mutex_acquire_resultStandardScheme();
+      }
+    }
+
+    private static class graph_mutex_acquire_resultStandardScheme extends StandardScheme<graph_mutex_acquire_result> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, graph_mutex_acquire_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, graph_mutex_acquire_result struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class graph_mutex_acquire_resultTupleSchemeFactory implements SchemeFactory {
+      public graph_mutex_acquire_resultTupleScheme getScheme() {
+        return new graph_mutex_acquire_resultTupleScheme();
+      }
+    }
+
+    private static class graph_mutex_acquire_resultTupleScheme extends TupleScheme<graph_mutex_acquire_result> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, graph_mutex_acquire_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, graph_mutex_acquire_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+      }
+    }
+
+  }
+
+  public static class graph_mutex_release_args implements org.apache.thrift.TBase<graph_mutex_release_args, graph_mutex_release_args._Fields>, java.io.Serializable, Cloneable, Comparable<graph_mutex_release_args>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("graph_mutex_release_args");
+
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new graph_mutex_release_argsStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new graph_mutex_release_argsTupleSchemeFactory());
+    }
+
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+;
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(graph_mutex_release_args.class, metaDataMap);
+    }
+
+    public graph_mutex_release_args() {
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public graph_mutex_release_args(graph_mutex_release_args other) {
+    }
+
+    public graph_mutex_release_args deepCopy() {
+      return new graph_mutex_release_args(this);
+    }
+
+    @Override
+    public void clear() {
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof graph_mutex_release_args)
+        return this.equals((graph_mutex_release_args)that);
+      return false;
+    }
+
+    public boolean equals(graph_mutex_release_args that) {
+      if (that == null)
+        return false;
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(graph_mutex_release_args other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+    }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("graph_mutex_release_args(");
+      boolean first = true;
+
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class graph_mutex_release_argsStandardSchemeFactory implements SchemeFactory {
+      public graph_mutex_release_argsStandardScheme getScheme() {
+        return new graph_mutex_release_argsStandardScheme();
+      }
+    }
+
+    private static class graph_mutex_release_argsStandardScheme extends StandardScheme<graph_mutex_release_args> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, graph_mutex_release_args struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, graph_mutex_release_args struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class graph_mutex_release_argsTupleSchemeFactory implements SchemeFactory {
+      public graph_mutex_release_argsTupleScheme getScheme() {
+        return new graph_mutex_release_argsTupleScheme();
+      }
+    }
+
+    private static class graph_mutex_release_argsTupleScheme extends TupleScheme<graph_mutex_release_args> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, graph_mutex_release_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, graph_mutex_release_args struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
+      }
+    }
+
+  }
+
+  public static class graph_mutex_release_result implements org.apache.thrift.TBase<graph_mutex_release_result, graph_mutex_release_result._Fields>, java.io.Serializable, Cloneable, Comparable<graph_mutex_release_result>   {
+    private static final org.apache.thrift.protocol.TStruct STRUCT_DESC = new org.apache.thrift.protocol.TStruct("graph_mutex_release_result");
+
+
+    private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
+    static {
+      schemes.put(StandardScheme.class, new graph_mutex_release_resultStandardSchemeFactory());
+      schemes.put(TupleScheme.class, new graph_mutex_release_resultTupleSchemeFactory());
+    }
+
+
+    /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
+    public enum _Fields implements org.apache.thrift.TFieldIdEnum {
+;
+
+      private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
+
+      static {
+        for (_Fields field : EnumSet.allOf(_Fields.class)) {
+          byName.put(field.getFieldName(), field);
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, or null if its not found.
+       */
+      public static _Fields findByThriftId(int fieldId) {
+        switch(fieldId) {
+          default:
+            return null;
+        }
+      }
+
+      /**
+       * Find the _Fields constant that matches fieldId, throwing an exception
+       * if it is not found.
+       */
+      public static _Fields findByThriftIdOrThrow(int fieldId) {
+        _Fields fields = findByThriftId(fieldId);
+        if (fields == null) throw new IllegalArgumentException("Field " + fieldId + " doesn't exist!");
+        return fields;
+      }
+
+      /**
+       * Find the _Fields constant that matches name, or null if its not found.
+       */
+      public static _Fields findByName(String name) {
+        return byName.get(name);
+      }
+
+      private final short _thriftId;
+      private final String _fieldName;
+
+      _Fields(short thriftId, String fieldName) {
+        _thriftId = thriftId;
+        _fieldName = fieldName;
+      }
+
+      public short getThriftFieldId() {
+        return _thriftId;
+      }
+
+      public String getFieldName() {
+        return _fieldName;
+      }
+    }
+    public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
+    static {
+      Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
+      metaDataMap = Collections.unmodifiableMap(tmpMap);
+      org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(graph_mutex_release_result.class, metaDataMap);
+    }
+
+    public graph_mutex_release_result() {
+    }
+
+    /**
+     * Performs a deep copy on <i>other</i>.
+     */
+    public graph_mutex_release_result(graph_mutex_release_result other) {
+    }
+
+    public graph_mutex_release_result deepCopy() {
+      return new graph_mutex_release_result(this);
+    }
+
+    @Override
+    public void clear() {
+    }
+
+    public void setFieldValue(_Fields field, Object value) {
+      switch (field) {
+      }
+    }
+
+    public Object getFieldValue(_Fields field) {
+      switch (field) {
+      }
+      throw new IllegalStateException();
+    }
+
+    /** Returns true if field corresponding to fieldID is set (has been assigned a value) and false otherwise */
+    public boolean isSet(_Fields field) {
+      if (field == null) {
+        throw new IllegalArgumentException();
+      }
+
+      switch (field) {
+      }
+      throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean equals(Object that) {
+      if (that == null)
+        return false;
+      if (that instanceof graph_mutex_release_result)
+        return this.equals((graph_mutex_release_result)that);
+      return false;
+    }
+
+    public boolean equals(graph_mutex_release_result that) {
+      if (that == null)
+        return false;
+
+      return true;
+    }
+
+    @Override
+    public int hashCode() {
+      return 0;
+    }
+
+    @Override
+    public int compareTo(graph_mutex_release_result other) {
+      if (!getClass().equals(other.getClass())) {
+        return getClass().getName().compareTo(other.getClass().getName());
+      }
+
+      int lastComparison = 0;
+
+      return 0;
+    }
+
+    public _Fields fieldForId(int fieldId) {
+      return _Fields.findByThriftId(fieldId);
+    }
+
+    public void read(org.apache.thrift.protocol.TProtocol iprot) throws org.apache.thrift.TException {
+      schemes.get(iprot.getScheme()).getScheme().read(iprot, this);
+    }
+
+    public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException {
+      schemes.get(oprot.getScheme()).getScheme().write(oprot, this);
+      }
+
+    @Override
+    public String toString() {
+      StringBuilder sb = new StringBuilder("graph_mutex_release_result(");
+      boolean first = true;
+
+      sb.append(")");
+      return sb.toString();
+    }
+
+    public void validate() throws org.apache.thrift.TException {
+      // check for required fields
+      // check for sub-struct validity
+    }
+
+    private void writeObject(java.io.ObjectOutputStream out) throws java.io.IOException {
+      try {
+        write(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(out)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+      try {
+        read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
+      } catch (org.apache.thrift.TException te) {
+        throw new java.io.IOException(te);
+      }
+    }
+
+    private static class graph_mutex_release_resultStandardSchemeFactory implements SchemeFactory {
+      public graph_mutex_release_resultStandardScheme getScheme() {
+        return new graph_mutex_release_resultStandardScheme();
+      }
+    }
+
+    private static class graph_mutex_release_resultStandardScheme extends StandardScheme<graph_mutex_release_result> {
+
+      public void read(org.apache.thrift.protocol.TProtocol iprot, graph_mutex_release_result struct) throws org.apache.thrift.TException {
+        org.apache.thrift.protocol.TField schemeField;
+        iprot.readStructBegin();
+        while (true)
+        {
+          schemeField = iprot.readFieldBegin();
+          if (schemeField.type == org.apache.thrift.protocol.TType.STOP) { 
+            break;
+          }
+          switch (schemeField.id) {
+            default:
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+          }
+          iprot.readFieldEnd();
+        }
+        iprot.readStructEnd();
+
+        // check for required fields of primitive type, which can't be checked in the validate method
+        struct.validate();
+      }
+
+      public void write(org.apache.thrift.protocol.TProtocol oprot, graph_mutex_release_result struct) throws org.apache.thrift.TException {
+        struct.validate();
+
+        oprot.writeStructBegin(STRUCT_DESC);
+        oprot.writeFieldStop();
+        oprot.writeStructEnd();
+      }
+
+    }
+
+    private static class graph_mutex_release_resultTupleSchemeFactory implements SchemeFactory {
+      public graph_mutex_release_resultTupleScheme getScheme() {
+        return new graph_mutex_release_resultTupleScheme();
+      }
+    }
+
+    private static class graph_mutex_release_resultTupleScheme extends TupleScheme<graph_mutex_release_result> {
+
+      @Override
+      public void write(org.apache.thrift.protocol.TProtocol prot, graph_mutex_release_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol oprot = (TTupleProtocol) prot;
+      }
+
+      @Override
+      public void read(org.apache.thrift.protocol.TProtocol prot, graph_mutex_release_result struct) throws org.apache.thrift.TException {
+        TTupleProtocol iprot = (TTupleProtocol) prot;
       }
     }
 

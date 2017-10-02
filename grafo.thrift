@@ -20,6 +20,9 @@ service Grafo {
 	list<Vertice> listar_vertices();
 	list<Aresta> listar_arestas();
 	list<Aresta> listar_arestas_vertice(1:i32 nome);
-	list<Vertice> listas_vizinhos_vertice(1:i32 nome);
+	list<Vertice> listar_vizinhos_vertice(1:i32 nome);
+
+	void graph_mutex_acquire();
+	void graph_mutex_release();
 
 }
