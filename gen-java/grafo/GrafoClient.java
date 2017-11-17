@@ -1,5 +1,6 @@
 package grafo;
 
+import java.util.*;
 import java.util.Scanner;
 import org.apache.thrift.TException;
 import org.apache.thrift.transport.TTransport;
@@ -7,7 +8,15 @@ import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 
+
+
 public class GrafoClient {
+	static void massert(boolean b) {
+		if(!b) {
+			System.out.println("Assertion failed.");
+			System.exit(1);
+		}
+	}
 	public static void main(String [] args) {
 		int porta = 0;
 		String servidor = "";
@@ -25,8 +34,34 @@ public class GrafoClient {
 			transport.open();
  			TProtocol protocol = new TBinaryProtocol(transport);
 			Grafo.Client client = new Grafo.Client(protocol);
+
+			List<Vertice> l = client.listar_vertices();
+			massert(l.size() == 0);
   			
-  			// v = new Vertice(2, 25, "O vertice do amor", 5.5);
+  			Vertice v = new Vertice(2, 25, "O vertex", 5.5);
+  			client.adiciona_vertice(v);
+  			l = client.listar_vertices();
+  			massert(l.size() == 1);
+
+  			v = null;
+  			v = client.le_vertice(2);
+  			massert(v.getNome() == 2);
+
+  			v.setDescricao("c");
+  			client.atualiza_vertice(2, v);
+  			v = client.le_vertice(2);
+  			l = client.listar_vertices();
+  			//massert(v.getDescricao() == "c");
+  			massert(l.size() == 1);
+
+  			client.deleta_vertice(2);
+  			v = client.le_vertice(2);
+  			massert(v.getNome() == -1);
+  			l = client.listar_vertices();
+  			massert(l.size() == 0);
+
+
+
   			// client.adiciona_vertice(v);
 
   			// Vertice v2 = client.le_vertice(v.nome);
@@ -71,17 +106,17 @@ public class GrafoClient {
 
   	// 		} while (op != 5);
 
-			Vertice v;
+			// Vertice v;
 			Aresta a;
 
 			v = new Vertice(1, 1, "Vertice um.", 1.1);
 			client.adiciona_vertice(v);
 
-			v = new Vertice(1, 1, "Vertice ocho.", 1.1);
-			client.adiciona_vertice(v);
+			// v = new Vertice(1, 1, "Vertice ocho.", 1.1);
+			// client.adiciona_vertice(v);
 
-			v = new Vertice(2, 1, "Vertice dois.", 1.1);
-			client.adiciona_vertice(v);
+			// v = new Vertice(2, 1, "Vertice dois.", 1.1);
+			// client.adiciona_vertice(v);
 
 			v = new Vertice(3, 1, "Vertice tres.", 1.1);
 			client.adiciona_vertice(v);
@@ -103,7 +138,7 @@ public class GrafoClient {
 
 			a = new Aresta(1, 2, 1.55667, true, "Aresta um");
 			client.adiciona_aresta(a);
-
+			
 			a = new Aresta(3, 1, 1.55667, true, "Aresta dois");
 			client.adiciona_aresta(a);
 
@@ -116,41 +151,48 @@ public class GrafoClient {
 			a = new Aresta(4, 5, 1.55667, true, "Aresta cinco");
 			client.adiciona_aresta(a);
 
+			a = new Aresta(5, 7, 2.5, true, "Aresta cinco");
+			client.adiciona_aresta(a);
+
 			a = new Aresta(2, 3, 1.55667, true, "Aresta seis");
 			client.adiciona_aresta(a);
 
-			//client.listar_arestas();
-			//client.listar_vertices();
-
-			//client.listar_arestas_vertice(4);
-			//client.listar_vizinhos_vertice(4);
-
-			// client.deleta_vertice(4);
-			// client.listar_arestas();
-
-			// client.deleta_aresta(1, 2);
-			// client.deleta_aresta(1, 2);
-
-			// a = new Aresta(4, 3, 2.55667, false, "Aresta quatro");
-			// client.atualiza_aresta(4, 3, a);
-			// client.listar_arestas();
-			
-			// v.setCor(88);
-			// client.atualiza_vertice(8, v);
-			// client.listar_vertices();
-
-			int cnt = 0;
-
-			while(cnt < 100000) {
-				client.graph_mutex_acquire();
-				cnt++;
-				a = client.le_aresta(2, 3);
-				a.setPeso(a.getPeso() + 1.0);
-				client.atualiza_aresta(2, 3, a);
-				client.graph_mutex_release();
-			}
-
 			client.listar_arestas();
+			client.listar_vertices();
+
+			client.listar_arestas_vertice(4);
+			client.listar_vizinhos_vertice(4);
+
+			client.dijkstra(4);
+
+			client.deleta_vertice(4);
+			client.listar_arestas();
+
+			client.deleta_aresta(1, 2);
+			client.deleta_aresta(1, 2);
+
+			a = new Aresta(4, 3, 2.55667, false, "Aresta quatro");
+			client.atualiza_aresta(4, 3, a);
+			client.listar_arestas();
+			
+			v.setCor(88);
+			client.atualiza_vertice(8, v);
+			client.listar_vertices();
+
+
+
+			// int cnt = 0;
+
+			// while(cnt < 100000) {
+			// 	client.graph_mutex_acquire();
+			// 	cnt++;
+			// 	a = client.le_aresta(2, 3);
+			// 	a.setPeso(a.getPeso() + 1.0);
+			// 	client.atualiza_aresta(2, 3, a);
+			// 	client.graph_mutex_release();
+			// }
+
+			// client.listar_arestas();
 
 			transport.close();
 

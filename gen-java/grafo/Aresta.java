@@ -433,32 +433,32 @@ public class Aresta implements org.apache.thrift.TBase<Aresta, Aresta._Fields>, 
         return false;
     }
 
-    // boolean this_present_peso = true;
-    // boolean that_present_peso = true;
-    // if (this_present_peso || that_present_peso) {
-    //   if (!(this_present_peso && that_present_peso))
-    //     return false;
-    //   if (this.peso != that.peso)
-    //     return false;
-    // }
+    boolean this_present_peso = true;
+    boolean that_present_peso = true;
+    if (this_present_peso || that_present_peso) {
+      if (!(this_present_peso && that_present_peso))
+        return false;
+      if (this.peso != that.peso)
+        return false;
+    }
 
-    // boolean this_present_direcionada = true;
-    // boolean that_present_direcionada = true;
-    // if (this_present_direcionada || that_present_direcionada) {
-    //   if (!(this_present_direcionada && that_present_direcionada))
-    //     return false;
-    //   if (this.direcionada != that.direcionada)
-    //     return false;
-    // }
+    boolean this_present_direcionada = true;
+    boolean that_present_direcionada = true;
+    if (this_present_direcionada || that_present_direcionada) {
+      if (!(this_present_direcionada && that_present_direcionada))
+        return false;
+      if (this.direcionada != that.direcionada)
+        return false;
+    }
 
-    // boolean this_present_descricao = true && this.isSetDescricao();
-    // boolean that_present_descricao = true && that.isSetDescricao();
-    // if (this_present_descricao || that_present_descricao) {
-    //   if (!(this_present_descricao && that_present_descricao))
-    //     return false;
-    //   if (!this.descricao.equals(that.descricao))
-    //     return false;
-    // }
+    boolean this_present_descricao = true && this.isSetDescricao();
+    boolean that_present_descricao = true && that.isSetDescricao();
+    if (this_present_descricao || that_present_descricao) {
+      if (!(this_present_descricao && that_present_descricao))
+        return false;
+      if (!this.descricao.equals(that.descricao))
+        return false;
+    }
 
     return true;
   }
