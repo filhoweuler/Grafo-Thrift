@@ -13,3 +13,7 @@
 	<li>  java -classpath jars/libthrift-0.9.3.jar:jars/slf4j-api-1.7.21.jar:gen-java/ grafo.GrafoServer 9090 9090 (Start no servidor)</li>
 	<li>  java -classpath jars/libthrift-0.9.3.jar:jars/slf4j-api-1.7.21.jar:gen-java/ grafo.GrafoClient localhost 9090 (Start em um cliente)</li>
 </ul>
+
+<h2> Referencias uteis para Instalação </h2>
+
+http://thrift-tutorial.readthedocs.io/en/latest/installation.html
